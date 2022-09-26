@@ -21,9 +21,18 @@ const { validateJWT } = require('../middlewares/validate-jwt');
 // GET Users
 /**
  * Logged Users only.
+ * Query by /users?limit=20&from=0
  */
 
-router.get('/', [validateJWT], getUsers);
+router.get(
+    '/',
+    [
+        query('limit', 'limit must be a number.').isNumeric().optional(),
+        query('from', 'from must be a number.').isNumeric().optional(),
+        validateJWT,
+    ],
+    getUsers
+);
 
 // POST Users
 

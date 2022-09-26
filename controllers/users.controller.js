@@ -2,24 +2,30 @@ const bcryptjs = require('bcryptjs');
 const { User, Role } = require('../models');
 
 // Get All Users
-// TODO: Query by /users?limit=20&from=0
+// Query by /users?limit=20&from=0
 
 const getUsers = async (req, res) => {
-    try {
-        const users = await User.findAll({
-            include: {
-                model: Role,
-                attributes: ['role'],
-            },
-            attributes: { exclude: ['role_id'] },
-            where: { status: true },
-        });
+    const { limit, from } = req.query;
 
-        const totalUsers = await User.count({
-            where: {
-                status: true,
-            },
-        });
+    const queryCondition = {
+        status: true
+    }
+
+    try {
+
+        const [totalUsers, users] = await Promise.all([
+            User.count(queryCondition),
+            User.findAll({
+                include: {
+                    model: Role,
+                    attributes: ['role'],
+                },
+                attributes: { exclude: ['role_id'] },
+                offset: from, 
+                limit,
+                where: queryCondition,
+            })
+        ])
 
         res.status(200).json({
             totalUsers,
