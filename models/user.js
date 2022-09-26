@@ -44,7 +44,4 @@ User.prototype.toJSON = function () {
     return user;
 };
 
-// References
-
-
 module.exports = User;

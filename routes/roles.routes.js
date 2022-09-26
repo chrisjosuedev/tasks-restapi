@@ -12,7 +12,7 @@ const { isAdminRole } = require('../middlewares/validate-roles')
 
 // GET Roles
 /**
- * TODO: Logged Users.
+ * Logged Users.
  */
 router.get('/', [validateJWT], getRoles);
 
