@@ -12,7 +12,6 @@ const getUsers = async (req, res) => {
     }
 
     try {
-
         const [totalUsers, users] = await Promise.all([
             User.count(queryCondition),
             User.findAll({

@@ -8,8 +8,8 @@ const isAdminRole = async (req, res, next) => {
 
     const { role_id, username } = req.user;
 
-    // role_id ADMIN_ROLE = 2 in DB
-    if (role_id !== 2) {
+    // role_id ADMIN_ROLE = 1 in DB
+    if (role_id !== 1) {
         return res.status(401).json({
             msg: `${username} is not an admin, You don't have permissions to complete this action.`
         })

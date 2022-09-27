@@ -32,6 +32,7 @@ class Server {
 
     async database() {
         try {
+            // force : true | force : false
             await db.sync({ force: false });
             console.log('Database connected');
         } catch (error) {
@@ -46,9 +47,10 @@ class Server {
     }
 
     routes() {
-        this.app.use(this.path.users, require('../routes/users.routes'))
         this.app.use(this.path.auth, require('../routes/auth.routes'))
         this.app.use(this.path.role, require('../routes/roles.routes'))
+        this.app.use(this.path.users, require('../routes/users.routes'))
+        this.app.use(this.path.categories, require('../routes/categories.routes'))
     }
 
     listen() {

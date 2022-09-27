@@ -6,16 +6,16 @@ const isValidRole = async (role = '') => {
     if (!roleExists) {
         throw new Error(`Role doesn't exists`);
     }
-    return true
+    return true;
 };
 
 const roleExists = async (role = '') => {
-    const roleSent = await Role.findOne({ where: { role } })
+    const roleSent = await Role.findOne({ where: { role } });
     if (roleSent) {
         throw new Error(`Role already exists`);
     }
-    return true
-}
+    return true;
+};
 
 /** User Validations **/
 const isValidUsername = async (username = '') => {
@@ -24,7 +24,7 @@ const isValidUsername = async (username = '') => {
     if (usernameExists) {
         throw new Error(`${username} Username has already been registered`);
     }
-    return true
+    return true;
 };
 
 const existsUser = async (id) => {
@@ -32,27 +32,18 @@ const existsUser = async (id) => {
     if (!idExists) {
         throw new Error(`User doesn't exists`);
     }
-    return true
+    return true;
 };
 
 // /** Category Validations **/
-// const existsCategoryId = async (id) => {
-//     const idExistsCategory = await Category.findById(id);
+const existsCategoryId = async (id) => {
+    const idExistsCategory = await Category.findByPk(id);
 
-//     if (!idExistsCategory) {
-//         throw new Error(`${id} category doesn't exists`);
-//     }
-//     return true
-// };
-
-// const isValidName = async (name = '') => {
-//     const category = await Category.findOne({ name: name.toUpperCase() });
-
-//     if (category) {
-//         throw new Error(`${category.name} category is already registered`);
-//     }
-//     return true
-// };
+    if (!idExistsCategory) {
+        throw new Error(`${id} category doesn't exists`);
+    }
+    return true
+};
 
 // /** Product Validations **/
 // const isValidProduct = async (name = '') => {
@@ -85,5 +76,6 @@ module.exports = {
     isValidRole,
     isValidUsername,
     roleExists,
-    existsUser
+    existsUser,
+    existsCategoryId
 };
