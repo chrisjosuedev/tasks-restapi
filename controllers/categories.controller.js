@@ -33,7 +33,18 @@ const postCategories = async (req, res) => {
     try {
         /** Verify if already Exists */
         const category = await Category.findOne({
-            where: { name, user_id: req.user.id, status: true },
+            where: {
+                name: Category.sequelize.where(
+                    Category.sequelize.fn(
+                        'LOWER',
+                        Category.sequelize.col('name')
+                    ),
+                    'LIKE',
+                    '%' + name.toLowerCase() + '%'
+                ),
+                user_id: req.user.id,
+                status: true,
+            },
         });
 
         if (category) {
@@ -64,7 +75,7 @@ const postCategories = async (req, res) => {
 // Update Category
 const updateCategory = async (req, res) => {
     const { id } = req.params;
-    const name = req.body.name.toLowerCase();
+    const { name } = req.body;
 
     try {
         // Update if Category belong to Req.user.id
@@ -82,11 +93,15 @@ const updateCategory = async (req, res) => {
         const userCategory = await Category.findOne({
             where: {
                 name: Category.sequelize.where(
-                    Category.sequelize.fn('LOWER', Category.sequelize.col('name')),
+                    Category.sequelize.fn(
+                        'LOWER',
+                        Category.sequelize.col('name')
+                    ),
                     'LIKE',
-                    '%' + name + '%'
+                    '%' + name.toLowerCase() + '%'
                 ),
                 user_id: req.user.id,
+                status: true,
             },
         });
 
