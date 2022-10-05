@@ -1,4 +1,4 @@
-const { Category, User } = require('../models');
+const { Category } = require('../models');
 
 // GET Categories
 const getCategories = async (req, res) => {
@@ -11,6 +11,7 @@ const getCategories = async (req, res) => {
                 offset: from,
                 limit,
                 where: { status: true, user_id: req.user.id },
+                attributes: { exclude: ['user_id', 'status'] }
             }),
         ]);
 
@@ -21,6 +22,32 @@ const getCategories = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).json({
+            msg: `${error}`,
+        });
+    }
+};
+
+// GET by ID
+const getCategoryById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const category = await Category.findOne({
+            where: { id, status: true, user_id: req.user.id },
+            attributes: { exclude: ['user_id', 'status'] },
+        });
+
+        if (!category) {
+            return res.status(400).json({
+                msg: `You don't have a category with ID ${id}.`,
+            });
+        }
+
+        res.status(200).json({
+            category,
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
             msg: `${error}`,
         });
     }
@@ -165,6 +192,7 @@ const deleteCategory = async (req, res) => {
 
 module.exports = {
     getCategories,
+    getCategoryById,
     postCategories,
     deleteCategory,
     updateCategory,

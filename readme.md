@@ -19,7 +19,7 @@
 `npm start`
 
 ## ⚙️ Database Configuration
-You can configure to use SQLite In-Memory:
+You can configure to use SQLite In-Memory.
 
 ## 📌 Project Structure
 ```bash
@@ -27,6 +27,7 @@ You can configure to use SQLite In-Memory:
 │   ├── auth.controller.js
 │   ├── categories.controller.js
 │   ├── roles.controller.js
+│   ├── tasks.controller.js
 │   └── auth.controller.js
 ├── db
 │   ├── connection.js
@@ -38,7 +39,8 @@ You can configure to use SQLite In-Memory:
 ├── middlewares
 │   ├── validate-fields.js
 │   ├── validate-jwt.js
-│   └── validate-roles.js
+│   ├── validate-roles.js
+│   └── validate-user-info.js
 ├── models
 │   ├── category.js
 │   ├── index.js
@@ -52,6 +54,7 @@ You can configure to use SQLite In-Memory:
 │   ├── auth.routes.js
 │   ├── categories.routes.js
 │   ├── roles.routes.js
+│   ├── tasks.routes.js
 │   └── auth.routes.js
 ├── .env
 ├── .gitignore

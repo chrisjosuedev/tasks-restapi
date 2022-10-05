@@ -5,9 +5,10 @@ const { check, query } = require('express-validator');
 
 const {
     getCategories,
+    getCategoryById,
     postCategories,
     deleteCategory,
-    updateCategory
+    updateCategory,
 } = require('../controllers/categories.controller');
 
 const { validateJWT } = require('../middlewares/validate-jwt');
@@ -29,6 +30,13 @@ router.get(
         validateFields,
     ],
     getCategories
+);
+
+// GET Category By ID
+router.get(
+    '/:id',
+    [validateJWT, check('id').custom(existsCategoryId), validateFields],
+    getCategoryById
 );
 
 // POST Categories

@@ -45,24 +45,6 @@ const existsCategoryId = async (id) => {
     return true
 };
 
-// /** Product Validations **/
-// const isValidProduct = async (name = '') => {
-//     const product = await Product.findOne({ name: name.toUpperCase() });
-
-//     if (product) {
-//         throw new Error(`${product.name} product is already registered`);
-//     }
-//     return true
-// };
-
-// const existsProductId = async (id) => {
-//     const idExistsProduct = await Product.findById(id);
-
-//     if (!idExistsProduct || !idExistsProduct.status) {
-//         throw new Error(`${id} product doesn't exists`);
-//     }
-//     return true
-// };
 
 // /** Allowed Collections **/
 // const allowedCollections = (collection = '', listCollections = []) => {
